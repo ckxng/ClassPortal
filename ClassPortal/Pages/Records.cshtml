@@ -1,0 +1,53 @@
+﻿@page
+@model ClassPortal.Pages.RecordsModel
+
+@{
+    ViewData["Title"] = "Records";
+}
+
+<h1>Records</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].Student.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].Semester.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].Course.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Record)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
