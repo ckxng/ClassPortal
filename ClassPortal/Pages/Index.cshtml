@@ -4,7 +4,20 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Student Record Lookup</h1>
+
+<p>Use this website to look up past transcripts for all connected colleges.</p>
+
+<form method="get" action="/Records">
+    <p>
+        Student Number<br />
+        <input name="StudentNumber" type="text" />
+    </p>
+    <p>
+        Last Name<br />
+        <input name="LastName" type="text" />
+    </p>
+    <p>
+        <input type="submit" value="Search" />
+    </p>
+</form>
