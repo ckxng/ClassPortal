@@ -12,17 +12,23 @@ namespace ClassPortal.Models
     {
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Student Number Link is Required")]
         public long StudentId { get; set; } //Foreign Key
+
+        public Student Student { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Semester ID Link is Required")]
         public long SemesterId { get; set; } //Foreign Key
 
-        [Required]
+        public Semester Semester { get; set; }
+
+        [Required(ErrorMessage = "Course ID Link is Required")]
         public long CourseId { get; set; } //Foreign Key
 
-        [Required]
+        public Course Course { get; set; }
+
+        [Required(ErrorMessage = "Record Status ID is Required (0=Hidden,1=Registered,2=Attended,3=Completed)")]
         public RecordStatus Status { get; set; }
 
     }

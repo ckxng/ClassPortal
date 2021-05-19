@@ -12,13 +12,13 @@ namespace ClassPortal.Models
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Course Code (ABC-101)")]
         public string Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Course Name")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Number of Credits (1,2,3...)")]
         public int Credits { get; set; }
 
         public ICollection<Record> Records { get; set; }

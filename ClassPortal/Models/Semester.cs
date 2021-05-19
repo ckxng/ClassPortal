@@ -12,13 +12,13 @@ namespace ClassPortal.Models
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "College ID Link is Required")]
         public long CollegeId { get; set; } //Foreign Key
 
-        [Required]
+        [Required(ErrorMessage = "Enter Starting Date")]
         public DateTime Date { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Semester Name")]
         public string Name { get; set; }
 
         public ICollection<Record> Records { get; set; }

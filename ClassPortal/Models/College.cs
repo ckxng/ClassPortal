@@ -12,7 +12,7 @@ namespace ClassPortal.Models
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter College Name")]
         public string Name { get; set; }
 
         public ICollection<Semester> Semesters { get; set; }

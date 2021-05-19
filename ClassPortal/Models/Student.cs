@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,13 +13,16 @@ namespace ClassPortal.Models
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
+        [DisplayName("Student Number")]
+        [Required(ErrorMessage = "Enter Student Number")]
         public string StudentNumber { get; set; }
 
-        [Required]
+        [DisplayName("First Name")]
+        [Required(ErrorMessage = "Enter First Name")]
         public string FirstName { get; set; }
 
-        [Required]
+        [DisplayName("Last Name")]
+        [Required(ErrorMessage = "Enter Last Name")]
         public string LastName { get; set; }
 
         public ICollection<Record> Records { get; set; }
