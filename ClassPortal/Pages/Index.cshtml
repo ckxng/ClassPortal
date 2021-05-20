@@ -8,16 +8,34 @@
 
 <p>Use this website to look up past transcripts for all connected colleges.</p>
 
-<form method="get" action="/Records">
-    <p>
-        Student Number<br />
-        <input name="StudentNumber" type="text" />
-    </p>
-    <p>
-        Last Name<br />
-        <input name="LastName" type="text" />
-    </p>
-    <p>
-        <input type="submit" value="Search" />
-    </p>
-</form>
+@if (Model.Error != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @Model.Error
+    </div>
+}
+else
+{
+    <form method="get" action="/Records">
+        <p>
+            College<br />
+            <select name="CollegeId">
+                @foreach (var item in Model.Colleges)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </p>
+        <p>
+            Student Number<br />
+            <input name="StudentNumber" type="text" />
+        </p>
+        <p>
+            Last Name<br />
+            <input name="LastName" type="text" />
+        </p>
+        <p>
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+}
