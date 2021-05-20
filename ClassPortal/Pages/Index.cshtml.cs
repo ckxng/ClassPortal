@@ -1,11 +1,8 @@
 ﻿using ClassPortal.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClassPortal.Pages
 {
@@ -31,7 +28,7 @@ namespace ClassPortal.Pages
 
         public void OnGet()
         {
-            if(Colleges == null)
+            if (Colleges == null)
             {
                 Error = "unable to retrieve list of colleges";
                 return;

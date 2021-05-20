@@ -1,10 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClassPortal.Models
 {
@@ -17,7 +12,7 @@ namespace ClassPortal.Models
         public long StudentId { get; set; } //Foreign Key
 
         public Student Student { get; set; }
-        
+
         [Required(ErrorMessage = "Semester ID Link is Required")]
         public long SemesterId { get; set; } //Foreign Key
 
