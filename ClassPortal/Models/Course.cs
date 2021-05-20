@@ -18,7 +18,7 @@ namespace ClassPortal.Models
         [Required(ErrorMessage = "Enter Number of Credits (1,2,3...)")]
         public int Credits { get; set; }
 
-        public ICollection<Record> Records { get; set; }
+        public ICollection<CourseRecord> CourseRecords { get; set; }
 
     }
 }

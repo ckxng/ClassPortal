@@ -22,6 +22,7 @@ namespace ClassPortal.Models
         [Required(ErrorMessage = "Enter Last Name")]
         public string LastName { get; set; }
 
-        public ICollection<Record> Records { get; set; }
+        public ICollection<CourseRecord> CourseRecords { get; set; }
+        public ICollection<DegreeRecord> DegreeRecords { get; set; }
     }
 }

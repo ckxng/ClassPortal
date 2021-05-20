@@ -33,6 +33,12 @@ namespace ClassPortal.Pages
                 Error = "unable to retrieve list of colleges";
                 return;
             }
+
+            if (Colleges.Count == 0)
+            {
+                Error = "no colleges exist";
+                return;
+            }
         }
     }
 }

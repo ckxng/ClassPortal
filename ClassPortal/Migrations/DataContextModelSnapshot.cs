@@ -61,7 +61,7 @@ namespace ClassPortal.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("ClassPortal.Models.Record", b =>
+            modelBuilder.Entity("ClassPortal.Models.CourseRecord", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,50 @@ namespace ClassPortal.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Records");
+                    b.ToTable("CourseRecords");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.Degree", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Degree");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.DegreeRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("DegreeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SemesterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DegreeId");
+
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("DegreeRecords");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.Semester", b =>
@@ -139,27 +182,54 @@ namespace ClassPortal.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("ClassPortal.Models.Record", b =>
+            modelBuilder.Entity("ClassPortal.Models.CourseRecord", b =>
                 {
                     b.HasOne("ClassPortal.Models.Course", "Course")
-                        .WithMany("Records")
+                        .WithMany("CourseRecords")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ClassPortal.Models.Semester", "Semester")
-                        .WithMany("Records")
+                        .WithMany("CourseRecords")
                         .HasForeignKey("SemesterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ClassPortal.Models.Student", "Student")
-                        .WithMany("Records")
+                        .WithMany("CourseRecords")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Semester");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.DegreeRecord", b =>
+                {
+                    b.HasOne("ClassPortal.Models.Degree", "Degree")
+                        .WithMany("DegreeRecords")
+                        .HasForeignKey("DegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClassPortal.Models.Semester", "Semester")
+                        .WithMany("DegreeRecords")
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClassPortal.Models.Student", "Student")
+                        .WithMany("DegreeRecords")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Degree");
 
                     b.Navigation("Semester");
 
@@ -182,17 +252,26 @@ namespace ClassPortal.Migrations
 
             modelBuilder.Entity("ClassPortal.Models.Course", b =>
                 {
-                    b.Navigation("Records");
+                    b.Navigation("CourseRecords");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.Degree", b =>
+                {
+                    b.Navigation("DegreeRecords");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.Semester", b =>
                 {
-                    b.Navigation("Records");
+                    b.Navigation("CourseRecords");
+
+                    b.Navigation("DegreeRecords");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.Student", b =>
                 {
-                    b.Navigation("Records");
+                    b.Navigation("CourseRecords");
+
+                    b.Navigation("DegreeRecords");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ClassPortal.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace ClassPortal.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BannerURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,6 +34,19 @@ namespace ClassPortal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Degree",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Degree", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +86,7 @@ namespace ClassPortal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Records",
+                name: "CourseRecords",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -84,21 +98,54 @@ namespace ClassPortal.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Records", x => x.Id);
+                    table.PrimaryKey("PK_CourseRecords", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Records_Courses_CourseId",
+                        name: "FK_CourseRecords_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Records_Semesters_SemesterId",
+                        name: "FK_CourseRecords_Semesters_SemesterId",
                         column: x => x.SemesterId,
                         principalTable: "Semesters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Records_Students_StudentId",
+                        name: "FK_CourseRecords_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DegreeRecords",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<long>(type: "bigint", nullable: false),
+                    SemesterId = table.Column<long>(type: "bigint", nullable: false),
+                    DegreeId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DegreeRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DegreeRecords_Degree_DegreeId",
+                        column: x => x.DegreeId,
+                        principalTable: "Degree",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DegreeRecords_Semesters_SemesterId",
+                        column: x => x.SemesterId,
+                        principalTable: "Semesters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DegreeRecords_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -106,18 +153,33 @@ namespace ClassPortal.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_CourseId",
-                table: "Records",
+                name: "IX_CourseRecords_CourseId",
+                table: "CourseRecords",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_SemesterId",
-                table: "Records",
+                name: "IX_CourseRecords_SemesterId",
+                table: "CourseRecords",
                 column: "SemesterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_StudentId",
-                table: "Records",
+                name: "IX_CourseRecords_StudentId",
+                table: "CourseRecords",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DegreeRecords_DegreeId",
+                table: "DegreeRecords",
+                column: "DegreeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DegreeRecords_SemesterId",
+                table: "DegreeRecords",
+                column: "SemesterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DegreeRecords_StudentId",
+                table: "DegreeRecords",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -129,10 +191,16 @@ namespace ClassPortal.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Records");
+                name: "CourseRecords");
+
+            migrationBuilder.DropTable(
+                name: "DegreeRecords");
 
             migrationBuilder.DropTable(
                 name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Degree");
 
             migrationBuilder.DropTable(
                 name: "Semesters");

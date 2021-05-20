@@ -5,10 +5,6 @@
     ViewData["Title"] = "Records";
 }
 
-
-
-<h1>Records</h1>
-
 @if (Model.Error != null)
 {
     <div class="alert alert-warning" role="alert">
@@ -34,6 +30,9 @@ else
     <p>
         Records for @Model.Student.FirstName @Model.Student.LastName (@Model.Student.StudentNumber)
     </p>
+    <h2>
+        Course Transcript
+    </h2>
     <table class="table">
         <thead>
             <tr>
@@ -41,19 +40,18 @@ else
                     Semester
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Record[0].Course.Code)
+                    @Html.DisplayNameFor(model => model.CourseRecords[0].Course.Code)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Record[0].Course.Name)
+                    @Html.DisplayNameFor(model => model.CourseRecords[0].Course.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Record[0].Status)
+                    @Html.DisplayNameFor(model => model.CourseRecords[0].Status)
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Record)
+            @foreach (var item in Model.CourseRecords)
             {
                 <tr>
                     <td>
@@ -67,6 +65,37 @@ else
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    <h2>
+        Degree Completions
+    </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Semester
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DegreeRecords[0].Degree.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DegreeRecords)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Semester.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Degree.Name)
                     </td>
                 </tr>
             }

@@ -18,7 +18,8 @@ namespace ClassPortal.Pages
             _context = context;
         }
 
-        public IList<Record> Record { get; set; }
+        public IList<CourseRecord> CourseRecords { get; set; }
+        public IList<DegreeRecord> DegreeRecords { get; set; }
         public Student Student { get; set; }
         public College College { get; set; }
 
@@ -44,7 +45,7 @@ namespace ClassPortal.Pages
                 return;
             }
 
-            Record = await _context.Records
+            CourseRecords = await _context.CourseRecords
                 .Include("Student")
                 .Include("Semester")
                 .Where(r => r.StudentId == Student.Id)
@@ -54,13 +55,28 @@ namespace ClassPortal.Pages
                 .ThenBy(s => s.Course.Code)
                 .ToListAsync();
 
-            if (Record == null)
+            if (CourseRecords == null)
             {
-                Error = "unable to lookup records";
+                Error = "unable to lookup course records";
                 return;
             }
 
-            if (Record.Count == 0)
+            DegreeRecords = await _context.DegreeRecords
+                .Include("Student")
+                .Include("Semester")
+                .Where(r => r.StudentId == Student.Id)
+                .Where(r => r.Semester.CollegeId == CollegeId)
+                .Include("Degree")
+                .OrderBy(s => s.Semester.Date)
+                .ToListAsync();
+
+            if (DegreeRecords == null)
+            {
+                Error = "unable to lookup degree completions";
+                return;
+            }
+
+            if (CourseRecords.Count == 0 && DegreeRecords.Count == 0)
             {
                 Error = "this user has no records in this college";
                 return;

@@ -10,7 +10,9 @@ namespace ClassPortal.Models
 
         public DbSet<Course> Courses { get; set; }
 
-        public DbSet<Record> Records { get; set; }
+        public DbSet<CourseRecord> CourseRecords { get; set; }
+
+        public DbSet<DegreeRecord> DegreeRecords { get; set; }
 
         public DbSet<Semester> Semesters { get; set; }
 
