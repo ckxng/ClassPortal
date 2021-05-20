@@ -12,6 +12,8 @@ namespace ClassPortal.Models
         [Required(ErrorMessage = "Enter College Name")]
         public string Name { get; set; }
 
+        public string BannerURL { get; set; }
+
         public ICollection<Semester> Semesters { get; set; }
     }
 }

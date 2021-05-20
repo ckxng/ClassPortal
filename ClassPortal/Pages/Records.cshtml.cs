@@ -20,9 +20,20 @@ namespace ClassPortal.Pages
 
         public IList<Record> Record { get; set; }
         public Student Student { get; set; }
+        public College College { get; set; }
 
         public async Task OnGetAsync(long CollegeId, string StudentNumber, string LastName)
         {
+            College = await _context.Colleges
+                .Where(c => c.Id == CollegeId)
+                .FirstOrDefaultAsync();
+
+            if (College == null)
+            {
+                Error = "unable to lookup college";
+                return;
+            }
+
             Student = await _context.Students
                 .Where(s => s.StudentNumber == StudentNumber && s.LastName == LastName)
                 .FirstOrDefaultAsync();

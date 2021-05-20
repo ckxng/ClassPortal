@@ -17,9 +17,23 @@
 }
 else
 {
+    if (Model.College.BannerURL == null)
+    {
+        <h1 align="center">
+            @Model.College.Name
+        </h1>
+
+    }
+    else
+    {
+        <div align="center">
+            <img src="@Model.College.BannerURL" style="object-fit: contain; width: 100%; height: 250px;" />
+        </div>
+    }
+
     <p>
-        Records for @Model.Student.FirstName @Model.Student.LastName (@Model.Student.StudentNumber)  
-    </p> 
+        Records for @Model.Student.FirstName @Model.Student.LastName (@Model.Student.StudentNumber)
+    </p>
     <table class="table">
         <thead>
             <tr>
@@ -41,20 +55,20 @@ else
         <tbody>
             @foreach (var item in Model.Record)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Semester.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Course.Code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Course.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Semester.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
