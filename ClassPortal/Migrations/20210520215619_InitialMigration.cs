@@ -37,7 +37,7 @@ namespace ClassPortal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Degree",
+                name: "Degrees",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -46,7 +46,7 @@ namespace ClassPortal.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Degree", x => x.Id);
+                    table.PrimaryKey("PK_Degrees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +81,30 @@ namespace ClassPortal.Migrations
                         name: "FK_Semesters_Colleges_CollegeId",
                         column: x => x.CollegeId,
                         principalTable: "Colleges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sections",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseID = table.Column<long>(type: "bigint", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Professor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sections_Courses_CourseID",
+                        column: x => x.CourseID,
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -133,9 +157,9 @@ namespace ClassPortal.Migrations
                 {
                     table.PrimaryKey("PK_DegreeRecords", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DegreeRecords_Degree_DegreeId",
+                        name: "FK_DegreeRecords_Degrees_DegreeId",
                         column: x => x.DegreeId,
-                        principalTable: "Degree",
+                        principalTable: "Degrees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -146,6 +170,32 @@ namespace ClassPortal.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DegreeRecords_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<long>(type: "bigint", nullable: false),
+                    SectionId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Sections_SectionId",
+                        column: x => x.SectionId,
+                        principalTable: "Sections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -183,6 +233,21 @@ namespace ClassPortal.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schedules_SectionId",
+                table: "Schedules",
+                column: "SectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_StudentId",
+                table: "Schedules",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sections_CourseID",
+                table: "Sections",
+                column: "CourseID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Semesters_CollegeId",
                 table: "Semesters",
                 column: "CollegeId");
@@ -197,19 +262,25 @@ namespace ClassPortal.Migrations
                 name: "DegreeRecords");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Schedules");
 
             migrationBuilder.DropTable(
-                name: "Degree");
+                name: "Degrees");
 
             migrationBuilder.DropTable(
                 name: "Semesters");
+
+            migrationBuilder.DropTable(
+                name: "Sections");
 
             migrationBuilder.DropTable(
                 name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Colleges");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
         }
     }
 }

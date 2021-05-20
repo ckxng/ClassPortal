@@ -31,6 +31,66 @@ else
         Records for @Model.Student.FirstName @Model.Student.LastName (@Model.Student.StudentNumber)
     </p>
     <h2>
+        Enrolled Schedule
+    </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.Course.Code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.Course.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.EndTime)
+                </th>
+                <th>
+                    Section @Html.DisplayNameFor(model => model.Schedules[0].Section.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.Professor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Schedules[0].Section.Details)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Schedules)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.Course.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.Course.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section.Professor)
+                </td>
+                <td>
+                    @Html.Raw(item.Section.Details)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <h2>
         Course Transcript
     </h2>
     <table class="table">

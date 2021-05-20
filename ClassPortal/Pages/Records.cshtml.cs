@@ -20,6 +20,7 @@ namespace ClassPortal.Pages
 
         public IList<CourseRecord> CourseRecords { get; set; }
         public IList<DegreeRecord> DegreeRecords { get; set; }
+        public IList<Schedule> Schedules { get; set; }
         public Student Student { get; set; }
         public College College { get; set; }
 
@@ -45,12 +46,19 @@ namespace ClassPortal.Pages
                 return;
             }
 
+            Schedules = await _context.Schedules
+                .Where(s => s.StudentId == Student.Id)
+                .Include(s => s.Section)
+                .ThenInclude(section => section.Course)
+                .OrderBy(s => s.Section.StartTime)
+                .ToListAsync();
+
             CourseRecords = await _context.CourseRecords
-                .Include("Student")
-                .Include("Semester")
+                .Include(cr => cr.Student)
+                .Include(cr => cr.Semester)
                 .Where(r => r.StudentId == Student.Id)
                 .Where(r => r.Semester.CollegeId == CollegeId)
-                .Include("Course")
+                .Include(cr => cr.Course)
                 .OrderBy(s => s.Semester.Date)
                 .ThenBy(s => s.Course.Code)
                 .ToListAsync();
@@ -62,11 +70,11 @@ namespace ClassPortal.Pages
             }
 
             DegreeRecords = await _context.DegreeRecords
-                .Include("Student")
-                .Include("Semester")
+                .Include(dr => dr.Student)
+                .Include(dr => dr.Semester)
                 .Where(r => r.StudentId == Student.Id)
                 .Where(r => r.Semester.CollegeId == CollegeId)
-                .Include("Degree")
+                .Include(dr => dr.Degree)
                 .OrderBy(s => s.Semester.Date)
                 .ToListAsync();
 

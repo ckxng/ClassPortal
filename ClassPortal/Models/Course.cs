@@ -20,5 +20,7 @@ namespace ClassPortal.Models
 
         public ICollection<CourseRecord> CourseRecords { get; set; }
 
+        public ICollection<Section> Sections { get; set; }
+
     }
 }

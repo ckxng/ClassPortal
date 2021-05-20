@@ -104,7 +104,7 @@ namespace ClassPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Degree");
+                    b.ToTable("Degrees");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.DegreeRecord", b =>
@@ -132,6 +132,61 @@ namespace ClassPortal.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("DegreeRecords");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.Schedule", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("SectionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Schedules");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.Section", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CourseID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Professor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseID");
+
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.Semester", b =>
@@ -236,6 +291,36 @@ namespace ClassPortal.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("ClassPortal.Models.Schedule", b =>
+                {
+                    b.HasOne("ClassPortal.Models.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClassPortal.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("ClassPortal.Models.Section", b =>
+                {
+                    b.HasOne("ClassPortal.Models.Course", "Course")
+                        .WithMany("Sections")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("ClassPortal.Models.Semester", b =>
                 {
                     b.HasOne("ClassPortal.Models.College", null)
@@ -253,6 +338,8 @@ namespace ClassPortal.Migrations
             modelBuilder.Entity("ClassPortal.Models.Course", b =>
                 {
                     b.Navigation("CourseRecords");
+
+                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("ClassPortal.Models.Degree", b =>
