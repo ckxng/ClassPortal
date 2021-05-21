@@ -1,3 +1,4 @@
+using ClassPortal.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,12 @@ namespace ClassPortal
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context)
         {
+            // apply any pending migrations
+            // this creates and seeds the database on first boot
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
