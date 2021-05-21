@@ -7,10 +7,14 @@ transcript and schedule viewer.
 
 ## Connection String
 
-Set the "DataContext" connection string to a SqlServer.
-(For example Azure SQL, SQLExpress, or MS SQL Server)
-If no "DataContext" connection is provided, a local 
-SQLExpress instance will be used.
+Set the connection string to a SqlServer.  (For example 
+Azure SQL, SQLExpress, or MS SQL Server)
+
+The app will search for a connection string in this order:
+1. Configuration entry: ConnectionStrings:DataContext
+2. Environment variable: CONNECTION_STRING
+3. If neither of the above are found, a local SQLExpress 
+   instance will be used.
 
 If the user in the connection string has access to do so,
 the database, tables, and sample data will be created

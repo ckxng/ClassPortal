@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace ClassPortal
 {
@@ -24,7 +25,9 @@ namespace ClassPortal
 
             services.AddDbContext<Models.DataContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DataContext")??Configuration.GetConnectionString("Default")));
+                    Configuration.GetConnectionString("DataContext")??
+                    Environment.GetEnvironmentVariable("CONNECTION_STRING")??
+                    Configuration.GetConnectionString("Default")));
 
         }
 
