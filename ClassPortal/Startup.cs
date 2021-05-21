@@ -23,7 +23,8 @@ namespace ClassPortal
             services.AddRazorPages();
 
             services.AddDbContext<Models.DataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DataContext")??Configuration.GetConnectionString("Default")));
 
         }
 
