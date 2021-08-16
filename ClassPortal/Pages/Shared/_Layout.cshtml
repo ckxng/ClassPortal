@@ -16,6 +16,28 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!--
+                Buttons for Nav Bar
+                This section is only useful if there will be subpages created as a part of the solution.
+                Specifically, the hard-coded pages for UofS and CCS.  If the UofS and CCS pages are removed
+                from the site, then this entire block of code can be removed as well, as navigation is not
+                required if the only pages are the index/login and the results page.
+                -->
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/UofS">University of Scouting</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/CCS">Commissioner's College</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end Buttons for Nav Bar -->
             </div>
         </nav>
     </header>

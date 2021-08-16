@@ -1,0 +1,56 @@
+﻿@page
+@model ClassPortal.Pages.CCSModel
+
+@{
+    ViewData["Title"] = "College of Commissioner Science";
+}
+
+<!--
+This is a hard-coded page that is specific to Longhorn Council CCS in 2021.
+If this software package is utilized by another council, then this page should
+be either removed or adapted to fit the specific needs of that council.
+
+The CollegeId of 2 specified here matches the SeedData created by the
+EF database migration.  If a different CollegeId is used in production, that
+will need to be adjusted or fixed to look up dynamically.
+
+See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
+-->
+
+<h1>Commissioner's College</h1>
+
+<p>Classes In-person & On-line</p>
+
+<p>
+    Longhorn Council Offices<br />
+    850 Cannon Dr. Hurst, TX 76054<br />
+    August 28th, 2021, 8:30 AM – 5:00 PM<br />
+    Registration: <a href="https://scoutingevent.com/662-CCS_2021">https://scoutingevent.com/662-CCS_2021</a>
+</p>
+
+
+<p>Degree Applications (to receive a degree you must complete an application):</p>
+<ul>
+    <li>Bachelors: <a href="https://forms.gle/UmnZ2btdzTjdX6RN8">https://forms.gle/UmnZ2btdzTjdX6RN8</a></li>
+    <li>Masters: <a href="https://forms.gle/knChiLGJU1p3m4ge7">https://forms.gle/knChiLGJU1p3m4ge7</a></li>
+    <li>Doctorate: <a href="https://forms.gle/NuZj5mYH2kgPxzkSA">https://forms.gle/NuZj5mYH2kgPxzkSA</a></li>
+</ul>
+
+<p>Use this website to look up past transcripts and current schedules.</p>
+
+<form method="get" action="/Records">
+    <input type="hidden" name="CollegeId" value="2" />
+    <p>
+        Student Number<br />
+        <input name="StudentNumber" type="text" />
+    </p>
+    <p>
+        Last Name<br />
+        <input name="LastName" type="text" />
+    </p>
+    <p>
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<p>Your last name is case-sensitive and should be entered exactly as it appears on your membership card.  Your Student ID is your BSA Member ID.  For more information, see the <a href="/LoginHelp">Login Help</a> page.</p>

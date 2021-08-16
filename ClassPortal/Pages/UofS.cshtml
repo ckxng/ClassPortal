@@ -1,0 +1,48 @@
+﻿@page
+@model ClassPortal.Pages.UofSModel
+
+@{
+    ViewData["Title"] = "University of Scouting";
+}
+
+<!--
+This is a hard-coded page that is specific to Longhorn Council UofS in 2021.
+If this software package is utilized by another council, then this page should
+be either removed or adapted to fit the specific needs of that council.
+
+The CollegeId of 2 specified here matches the SeedData created by the
+EF database migration.  If a different CollegeId is used in production, that
+will need to be adjusted or fixed to look up dynamically.
+
+See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
+-->
+
+<h1>University of Scouting</h1>
+
+<p>Important Links:</p>
+
+<ul>
+    <li>Catalog: TBD</li>
+    <li>Registration: TBD</li>
+    <li>Degree Application (to receive a degree you must complete an application): <a href="https://forms.gle/AimG42YBc4K4fGXZ8">https://forms.gle/AimG42YBc4K4fGXZ8</a></li>
+</ul>
+
+<p>Use this website to look up past transcripts and current schedules.</p>
+
+<form method="get" action="/Records">
+    <input type="hidden" name="CollegeId" value="1" />
+    <p>
+        Student Number<br />
+        <input name="StudentNumber" type="text" />
+    </p>
+    <p>
+        Last Name<br />
+        <input name="LastName" type="text" />
+    </p>
+    <p>
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<p>Your last name is case-sensitive and should be entered exactly as it appears on your membership card.  Your Student ID is your BSA Member ID.  For more information, see the <a href="/LoginHelp">Login Help</a> page.</p>
+
