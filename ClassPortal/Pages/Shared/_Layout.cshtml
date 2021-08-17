@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Class Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <style>
         .collegeLinkHover{
             z-index: 10;
@@ -50,6 +51,21 @@
         }
         @@media screen and (max-width: 775px){
             #OR { display:none;}
+        }
+        #infoPanelToggle{
+            position: absolute;
+            bottom: 0;
+            right: -6px;
+            cursor: pointer;
+            color: blue;
+        }
+        ul#importantLinks {
+            list-style: none;
+        }
+        ul#importantLinks li::before{
+            content: '\269C';
+            margin-left: -28px;
+            margin-right: 5px
         }
     </style>
 </head>
@@ -99,7 +115,33 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script>
+        jQuery.fn.rotate = function(degrees) {
+            $(this).css({'transform' : 'rotate('+ degrees +'deg)'});
+            return $(this);
+        };
+        function infoPanelToggle(){
+            $('#form-info').slideToggle();
+            $('#infoPanelToggle').toggleClass('fa-chevron-up fa-chevron-down');
+        }
+        $('#recordsSearchBtn').on('click', (e)=>{
+            let SN = $('#StudentNumber'), LN = $('#LastName');
+            if(SN.val() == '' || LN.val() == ''){
+                e.preventDefault();
+                $('#form-info').slideDown();
+                $('#infoPanelToggle').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                SN.val() == '' ? SN.css('backgroundColor', 'pink').select() : null
+                LN.val() == '' ? LN.css('backgroundColor', 'pink').select() : null
+                setTimeout(()=>{
+                    SN.css('backgroundColor', '');
+                    LN.css('backgroundColor', '');
+                }, 3000);
+            }else{
+                $('#form-info').slideUp();
+                $('#infoPanelToggle').addClass('fa-chevron-down').removeClass('fa-chevron-up');
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
