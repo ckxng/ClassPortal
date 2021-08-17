@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <style>
+        .nav-item div{
+            border-bottom: 1.5px solid grey;
+            margin: 0 auto;
+            width: 0;
+            transform: translateY(-0.8rem);
+            transition: width .3s ease-in-out;
+        }
+        .nav-item:hover div{
+            width: 85%;
+        }
         .collegeLinkHover{
             z-index: 10;
         }
@@ -88,12 +98,15 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link text-dark m-2" href="/">Home</a>
+                        <div></div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark m-2" href="/UofS">University of Scouting</a>
+                        <div></div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark m-2" href="/CCS">Commissioner's College</a>
+                        <div></div>
                     </li>
                 </ul>
             </div>
