@@ -6,39 +6,111 @@
     <title>@ViewData["Title"] - Class Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        .nav-item div{
+            border-bottom: 1.5px solid grey;
+            margin: 0 auto;
+            width: 0;
+            transform: translateY(-0.8rem);
+            transition: width .3s ease-in-out;
+        }
+        .nav-item:hover div{
+            width: 85%;
+        }
+        .collegeLinkHover{
+            z-index: 10;
+        }
+        .collegeLinkHover:hover{
+            text-decoration: none;
+        }
+        .collegeLinkHover h5{
+            transition: all .5s ease;
+        }
+        .collegeLinkHover img{
+            border-radius: 10px;
+            box-shadow: 0 0 3px black, 0 0 9px black;
+            transition: all .5s ease;
+        }
+        .collegeLinkHover:hover h5{
+            font-size: 16pt;
+        }
+        .collegeLinkHover:hover img{
+            box-shadow: 0 0 6px black, 0 0 14px black;
+            transform: scale(1.02);
+        }
+        #OR {
+            z-index: 1;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: grey;
+            transform: rotate(90deg);
+            width: 1px;
+            max-height: 1px;
+            margin-top:14rem;
+        }
+        #OR span{
+            transform: rotate(-90deg);
+        }
+        #OR hr{
+            border: .5px grey solid;
+            min-width: 8rem;
+            margin: auto 1rem;
+        }
+        @@media screen and (max-width: 775px){
+            #OR { display:none;}
+        }
+        #infoPanelToggle{
+            position: absolute;
+            bottom: 0;
+            right: -6px;
+            cursor: pointer;
+            color: blue;
+        }
+        ul#importantLinks {
+            list-style: none;
+        }
+        ul#importantLinks li::before{
+            content: '\269C';
+            margin-left: -28px;
+            margin-right: 5px
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Class Portal</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!--
-                Buttons for Nav Bar
-                This section is only useful if there will be subpages created as a part of the solution.
-                Specifically, the hard-coded pages for UofS and CCS.  If the UofS and CCS pages are removed
-                from the site, then this entire block of code can be removed as well, as navigation is not
-                required if the only pages are the index/login and the results page.
-                -->
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/UofS">University of Scouting</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/CCS">Commissioner's College</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- end Buttons for Nav Bar -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 px-4">
+            <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="/img/logo.png" style="height:50px;"/> Class Portal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--
+            Buttons for Nav Bar
+            This section is only useful if there will be subpages created as a part of the solution.
+            Specifically, the hard-coded pages for UofS and CCS.  If the UofS and CCS pages are removed
+            from the site, then this entire block of code can be removed as well, as navigation is not
+            required if the only pages are the index/login and the results page.
+            -->
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark m-2" href="/">Home</a>
+                        <div></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark m-2" href="/UofS">University of Scouting</a>
+                        <div></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark m-2" href="/CCS">Commissioner's College</a>
+                        <div></div>
+                    </li>
+                </ul>
             </div>
+            <!-- end Buttons for Nav Bar -->
         </nav>
     </header>
     <div class="container">
@@ -56,7 +128,33 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script>
+        jQuery.fn.rotate = function(degrees) {
+            $(this).css({'transform' : 'rotate('+ degrees +'deg)'});
+            return $(this);
+        };
+        function infoPanelToggle(){
+            $('#form-info').slideToggle();
+            $('#infoPanelToggle').toggleClass('fa-chevron-up fa-chevron-down');
+        }
+        $('#recordsSearchBtn').on('click', (e)=>{
+            let SN = $('#StudentNumber'), LN = $('#LastName');
+            if(SN.val() == '' || LN.val() == ''){
+                e.preventDefault();
+                $('#form-info').slideDown();
+                $('#infoPanelToggle').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                SN.val() == '' ? SN.css('backgroundColor', 'pink').select() : null
+                LN.val() == '' ? LN.css('backgroundColor', 'pink').select() : null
+                setTimeout(()=>{
+                    SN.css('backgroundColor', '');
+                    LN.css('backgroundColor', '');
+                }, 3000);
+            }else{
+                $('#form-info').slideUp();
+                $('#infoPanelToggle').addClass('fa-chevron-down').removeClass('fa-chevron-up');
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

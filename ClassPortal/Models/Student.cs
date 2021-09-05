@@ -10,8 +10,8 @@ namespace ClassPortal.Models
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [DisplayName("Student Number")]
-        [Required(ErrorMessage = "Enter Student Number")]
+        [DisplayName("Member ID")]
+        [Required(ErrorMessage = "Enter Member ID")]
         public string StudentNumber { get; set; }
 
         [DisplayName("First Name")]
