@@ -18,7 +18,7 @@ See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
 -->
 
 <h1>
-    <img src="https://picsum.photos/300/400?random=1" class="rounded-circle" style="width:100px; height:100px;"/>
+    <img src="/img/uos.jpg" style="height:100px;"/>
     University of Scouting
 </h1>
 
@@ -32,10 +32,9 @@ See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
                 </p>
                 <i class="fa fa-chevron-down" id="infoPanelToggle" style="font-size: 15pt;" title="Toggle information panel" onclick="infoPanelToggle()"></i>
             </div>
-            <div id="form-info" style="overflow-y: hidden; display:none;">
+            <div id="form-info">
                 <hr class="my-1"/>
-                Your last name is <b>case-sensitive</b> and should be entered exactly as it appears on your membership card. 
-                <b>Your Student ID is your BSA Member ID</b>. For more information, see the <a href="/LoginHelp">Login Help</a> page.
+                Your Member ID is your BSA Member ID from your membership card or my.scouting.org.  Your last name is case-sensitive and should be entered exactly as it appears on your membership card.  For more information, see the <a href="/LoginHelp">Login Help</a> page.
             </div>
         </div>
         <form method="get" action="/Records" class="mx-auto">
@@ -43,24 +42,24 @@ See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
             <div class="row">
                 <div class="col-lg-5 col-sm-12 mt-2">
                     <label for="StudentNumber" class="sr-only">Student Number</label>
-                    <input name="StudentNumber" id="StudentNumber" type="text" class="form-control" placeholder="Student Number"/>
+                    <input name="StudentNumber" id="StudentNumber" type="text" class="form-control" placeholder="Member ID"/>
                 </div>
                 <div class="col-lg-5 col-sm-12 mt-2">
                     <label for="LastName" class="sr-only">Last Name</label>
                     <input name="LastName" id="LastName" type="text" class="form-control" placeholder="Last Name"/>
                 </div>
                 <div class="col-lg-1 col-md-12 mt-2 text-center">
-                    <button type="submit" id="recordsSearchBtn" class="btn btn-primary">Search</button>
+                    <button type="submit" id="recordsSearchBtn" class="btn btn-primary">Login</button>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-md-6 col-sm-12">
-        <p>Important Links:</p>
         <ul id="importantLinks">
-            <li>Catalog: TBD</li>
-            <li>Registration: TBD</li>
-            <li>Degree Application (to receive a degree you must complete an application): <a href="https://forms.gle/AimG42YBc4K4fGXZ8">https://forms.gle/AimG42YBc4K4fGXZ8</a></li>
+            <li>Catalog: <a href="https://scoutingevent.com/Download/66280606/OR/2021_University_of_Scouting_Full_Event_Catalog.pdf">Download the PDF</a></li>
+            <li>Registration: <a href="https://scoutingevent.com/662-UoS_2021">Register Online</a></li>
+            <li>Degree Application: <a href="https://forms.gle/AimG42YBc4K4fGXZ8">Fill out the Form</a></li>
         </ul>
+        <p>To receive a degree you must complete an application!</p>
     </div>
 </div>

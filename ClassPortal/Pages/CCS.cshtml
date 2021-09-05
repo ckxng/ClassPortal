@@ -17,7 +17,10 @@ will need to be adjusted or fixed to look up dynamically.
 See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
 -->
 
-<h1>Commissioner's College</h1>
+<h1>
+    <img src="/img/ccs.png" style="height:100px;" />
+    Commissioner's College
+</h1>
 
 <p>Classes In-person & On-line</p>
 
@@ -35,12 +38,16 @@ See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
     <li>Doctorate: <a href="https://forms.gle/NuZj5mYH2kgPxzkSA">https://forms.gle/NuZj5mYH2kgPxzkSA</a></li>
 </ul>
 
+<p>
+    For everything you might want to know about course contents, visit the <a href="https://www.scouting.org/commissioners/training/college/">College of Commissioner Science</a> page.
+</p>
+
 <p>Use this website to look up past transcripts and current schedules.</p>
 
 <form method="get" action="/Records">
     <input type="hidden" name="CollegeId" value="2" />
     <p>
-        Student Number<br />
+        Member ID<br />
         <input name="StudentNumber" type="text" />
     </p>
     <p>
@@ -52,4 +59,4 @@ See "Buttons for Nav Bar" in Pages/Shared/_Layout.cshtml
     </p>
 </form>
 
-<p>Your last name is case-sensitive and should be entered exactly as it appears on your membership card.  Your Student ID is your BSA Member ID.  For more information, see the <a href="/LoginHelp">Login Help</a> page.</p>
+<p>Your Member ID is your BSA Member ID from your membership card or my.scouting.org.  Your last name is case-sensitive and should be entered exactly as it appears on your membership card.  For more information, see the <a href="/LoginHelp">Login Help</a> page.</p>
